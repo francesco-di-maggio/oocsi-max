@@ -23,7 +23,7 @@ function anything() {
         var param = args[0].toString();
         var values = args.slice(1);
 
-        messageData[param] = (values.length === 1) ? values[0] : values;
+        messageData[param] = values.length === 1 ? values[0] : values;
         sendOOCSIMessage();
     }
 }
@@ -37,6 +37,5 @@ function sendOOCSIMessage() {
     var formattedMessage = "sendjson " + oocsiChannel + " " + jsonMessage;
 
     outlet(0, formattedMessage); // Send to TCP client
-
     messageData = {}; // Reset stored data
 }

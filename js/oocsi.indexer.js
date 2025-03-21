@@ -6,14 +6,15 @@ outlets = 2;
 var smartThingIndexMap = {};  // Maps smart things to index numbers
 var lastPingTime = {};        // Tracks last received ping timestamps
 var nextIndex = 1;            // Next available index
-var timeoutThreshold = 2000;  // Timeout: 4 sec of no ping = disconnection
+var timeoutThreshold = 2000;  // Timeout: 2 sec of no ping = disconnection
 
 // **Process Incoming OOCSI Data**
-function indexOOCSI(channel, smartThingID, param, value) {
+function indexOOCSI(channel, smartThingID, param) {
+    var values = arrayfromargs(arguments).slice(3); // Get all values
     var currentTime = new Date().getTime();
 
     // **Handle Client Pings ("channel client ping 1")**
-    if (param === "ping" && value == 1) {
+    if (param === "ping" && values[0] == 1) {
         lastPingTime[smartThingID] = currentTime; // Track last received ping
 
         if (!(smartThingID in smartThingIndexMap)) {
@@ -32,8 +33,8 @@ function indexOOCSI(channel, smartThingID, param, value) {
     lastPingTime[smartThingID] = currentTime; // Update last message time
     var deviceIndex = smartThingIndexMap[smartThingID];
 
-    // **Send formatted output: [channel param index value]**
-    outlet(0, channel, param, deviceIndex, value);
+    // **Send formatted output: [channel param index values]**
+    outlet(0, [channel, param, deviceIndex].concat(values));
 }
 
 // **Check for Disconnected Smart Things & Reassign Indexes**
@@ -60,6 +61,7 @@ function checkForTimeouts() {
             delete lastPingTime[lostThing];
         }
 
+        // **Reassign Indexes Sequentially**
         var newIndex = 1;
         for (var thing in smartThingIndexMap) {
             smartThingIndexMap[thing] = newIndex++;
