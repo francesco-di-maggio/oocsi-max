@@ -1,75 +1,69 @@
-// OOCSI Receiver for Max/MSP
+// oocsi.receiver.js
+// This module parses standard OOCSI messages from your data channel.
+// It handles internal ping messages (sent as "." or ".;"), welcome messages,
+// and structured messages. The output is an array in the form:
+// [channel, client, param, value(s)...]
 inlets = 1;
-outlets = 1; // Single outlet, Max handles further routing
+outlets = 1;
 
-// Regex for structured OOCSI messages (including timestamps and sender)
-var headerRe = /^([\w\/-]+)\s+timestamp=\d+\s+sender=([a-zA-Z0-9\/-]+)(?:_\d+)?\s+(.*)$/;
-// Regex for key=value pairs (handles slashes in keys)
-var kvRe = /([A-Za-z0-9_\/]+)=(\S+)/g;
-// Regex for "welcome client" messages
-var welcomeRe = /^welcome\s+([a-zA-Z0-9\/-]+)(?:_\d+)?$/;
+var headerRe = /^([\w\/-]+)\s+timestamp=\d+\s+sender=([^\s]+)(?:_\d+)?\s+(.*)$/;
+var kvRe = /([A-Za-z0-9_\/]+)=([^\s]+)/g;
+var welcomeRe = /^welcome\s+([^\s]+)(?:_\d+)?$/;
 
-function receiveOOCSI(raw) {
+function receiveOOCSI() {
+    var raw = arrayfromargs(arguments).join(" ");
     raw = raw.trim();
-
-    // **Split multiple messages (handle batch OOCSI messages)**
-    var messages = raw.split(";").map(function(m) { return m.trim(); }).filter(Boolean);
-
+    var messages = raw.split(";").map(function(m) {
+        return m.trim();
+    }).filter(function(m) {
+        return m.length > 0;
+    });
+    
     for (var i = 0; i < messages.length; i++) {
-        var message = messages[i];
-
-        // **Handle "welcome client" messages**
-        var welcomeMatch = welcomeRe.exec(message);
+        var msg = messages[i];
+        
+        // Handle internal ping messages
+        if (msg === "." || msg === ".;") {
+            outlet(0, ["ping"]);
+            continue;
+        }
+        
+        // Handle welcome messages
+        welcomeRe.lastIndex = 0; // Reset regex state
+        var welcomeMatch = welcomeRe.exec(msg);
         if (welcomeMatch) {
-            outlet(0, "welcome", welcomeMatch[1]); // Output "welcome client-name"
+            outlet(0, ["welcome", welcomeMatch[1]]);
             continue;
         }
-
-        // **Handle internal ping messages (".;" → "ping")**
-        if (message === ".;" || message === ".") {
-            outlet(0, "ping"); // Output only "ping"
-            continue;
-        }
-
-        // **Handle structured OOCSI messages**
-        var match = headerRe.exec(message);
+        
+        // Handle structured OOCSI messages
+        headerRe.lastIndex = 0; // Reset regex state
+        var match = headerRe.exec(msg);
         if (match) {
-            var result = [];
-            var channel = match[1];  // OOCSI Channel Name
-            result.push(channel);
-            var sender = match[2];   // Client/Sender ID
-            result.push(sender);
-            var params = match[3];
+            var channel = match[1].trim();
+            var sender = match[2].trim();
+            var paramStr = match[3];
+            var output = [channel, sender];
+            
+            kvRe.lastIndex = 0; // Reset key/value regex state
             var kvMatch;
-
-            // **Parse key-value pairs**
-            while ((kvMatch = kvRe.exec(params)) !== null) {
+            while ((kvMatch = kvRe.exec(paramStr)) !== null) {
                 var key = kvMatch[1];
                 var value = kvMatch[2];
-
-                result.push(key);
-
-                // **Handle numeric, list, and text values**
+                output.push(key);
+                
                 if (value.indexOf(",") !== -1) {
-                    var tokens = value.split(",").map(function(t) { return t.trim(); });
+                    var tokens = value.split(",").map(function(t) {
+                        return t.trim();
+                    });
                     for (var j = 0; j < tokens.length; j++) {
-                        if (!isNaN(tokens[j])) {
-                            result.push(parseFloat(tokens[j])); // Convert to number
-                        } else {
-                            result.push(tokens[j]); // Keep as string
-                        }
+                        output.push(isNaN(tokens[j]) ? tokens[j] : parseFloat(tokens[j]));
                     }
                 } else {
-                    if (!isNaN(value)) {
-                        result.push(parseFloat(value)); // Convert single numeric value
-                    } else {
-                        result.push(value); // Keep as string
-                    }
+                    output.push(isNaN(value) ? value : parseFloat(value));
                 }
             }
-
-            // **Output structured message: [channel sender param values]**
-            outlet(0, result);
+            outlet(0, output);
         }
     }
 }

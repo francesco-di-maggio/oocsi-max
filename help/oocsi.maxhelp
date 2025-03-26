@@ -63,7 +63,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 70.0, 167.5, 20.0, 20.0 ],
 					"rounded" : 60.0,
-					"text" : "6",
+					"text" : "2",
 					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ],
 					"textoncolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textovercolor" : [ 0.1, 0.1, 0.1, 1.0 ],
@@ -175,34 +175,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 579.0, 247.0, 87.0, 25.0 ],
-					"text" : "set client id"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 1.0, 0.788235, 0.470588, 1.0 ],
-					"bgoncolor" : [ 0.55, 0.55, 0.55, 1.0 ],
-					"fontname" : "Ableton Sans Medium",
-					"fontsize" : 10.0,
-					"hint" : "",
-					"id" : "obj-41",
-					"ignoreclick" : 1,
-					"legacytextcolor" : 1,
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 555.0, 250.0, 20.0, 20.0 ],
-					"rounded" : 60.0,
-					"text" : "3",
-					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ],
-					"textoncolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"textovercolor" : [ 0.1, 0.1, 0.1, 1.0 ],
-					"usebgoncolor" : 1,
-					"usetextovercolor" : 1
+					"patching_rect" : [ 551.0, 247.0, 74.0, 25.0 ],
+					"text" : "set client"
 				}
 
 			}
@@ -261,7 +235,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 910.0, 290.0, 20.0, 20.0 ],
 					"rounded" : 60.0,
-					"text" : "5",
+					"text" : "1",
 					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ],
 					"textoncolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"textovercolor" : [ 0.1, 0.1, 0.1, 1.0 ],
@@ -279,34 +253,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 690.0, 288.0, 173.0, 25.0 ],
+					"patching_rect" : [ 663.0, 288.0, 173.0, 25.0 ],
 					"text" : "set channel (and subscribe)"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 1.0, 0.788235, 0.470588, 1.0 ],
-					"bgoncolor" : [ 0.55, 0.55, 0.55, 1.0 ],
-					"fontname" : "Ableton Sans Medium",
-					"fontsize" : 10.0,
-					"hint" : "",
-					"id" : "obj-37",
-					"ignoreclick" : 1,
-					"legacytextcolor" : 1,
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 666.0, 291.0, 20.0, 20.0 ],
-					"rounded" : 60.0,
-					"text" : "4",
-					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ],
-					"textoncolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"textovercolor" : [ 0.1, 0.1, 0.1, 1.0 ],
-					"usebgoncolor" : 1,
-					"usetextovercolor" : 1
 				}
 
 			}
@@ -319,34 +267,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 422.0, 206.0, 68.0, 25.0 ],
+					"patching_rect" : [ 394.0, 206.0, 68.0, 25.0 ],
 					"text" : "set port"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 1.0, 0.788235, 0.470588, 1.0 ],
-					"bgoncolor" : [ 0.55, 0.55, 0.55, 1.0 ],
-					"fontname" : "Ableton Sans Medium",
-					"fontsize" : 10.0,
-					"hint" : "",
-					"id" : "obj-34",
-					"ignoreclick" : 1,
-					"legacytextcolor" : 1,
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 398.0, 209.0, 20.0, 20.0 ],
-					"rounded" : 60.0,
-					"text" : "2",
-					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ],
-					"textoncolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"textovercolor" : [ 0.1, 0.1, 0.1, 1.0 ],
-					"usebgoncolor" : 1,
-					"usetextovercolor" : 1
 				}
 
 			}
@@ -359,34 +281,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 353.0, 165.0, 105.0, 25.0 ],
+					"patching_rect" : [ 325.0, 165.0, 105.0, 25.0 ],
 					"text" : "set server host"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"bgcolor" : [ 1.0, 0.788235, 0.470588, 1.0 ],
-					"bgoncolor" : [ 0.55, 0.55, 0.55, 1.0 ],
-					"fontname" : "Ableton Sans Medium",
-					"fontsize" : 10.0,
-					"hint" : "",
-					"id" : "obj-35",
-					"ignoreclick" : 1,
-					"legacytextcolor" : 1,
-					"maxclass" : "textbutton",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "int" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 325.0, 167.0, 20.0, 20.0 ],
-					"rounded" : 60.0,
-					"text" : "1",
-					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ],
-					"textoncolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"textovercolor" : [ 0.1, 0.1, 0.1, 1.0 ],
-					"usebgoncolor" : 1,
-					"usetextovercolor" : 1
 				}
 
 			}
@@ -398,7 +294,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 588.0, 289.0, 72.0, 23.0 ],
-					"text" : "maxchannel"
+					"text" : "testchannel"
 				}
 
 			}
@@ -790,7 +686,7 @@
 
 			}
  ],
-		"originid" : "pat-150",
+		"originid" : "pat-32",
 		"parameters" : 		{
 			"obj-29::obj-115" : [ "live.text[237]", "live.text", 0 ],
 			"obj-29::obj-135" : [ "live.text[227]", "live.text", 0 ],

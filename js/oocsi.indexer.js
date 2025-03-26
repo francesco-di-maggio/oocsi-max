@@ -1,76 +1,156 @@
-// OOCSI Indexer for Max/MSP
-// outlet(0) → Data messages (formatted output)
-// outlet(1) → Debug messages (monitoring)
+// oocsi.indexer.js
+// Inlet 0: Data messages from oocsi.receiver.js, format: [channel, client, param, value(s)...]
+// Inlet 1: Presence events from oocsi.presence.js, format: 
+//          For join/leave: [channel, client, "join"/"leave"]
+//          For refresh: [channel, "refresh", client1, client2, ...]
+// Outlets:
+//   Outlet 0: Final output: [channel, index, param, value(s)...]
+//   Outlet 1: Debug/status messages
+//
+// Debug output format:
+//   joined CLIENT_NAME
+//   left CLIENT_NAME
+//   refresh CLIENT_A CLIENT_B ...   (or "refresh empty" if no senders)
+// Note: The first client in any refresh message is assumed to be the local receiver and is ignored.
+
+inlets = 2;
 outlets = 2;
 
-var smartThingIndexMap = {};  // Maps smart things to index numbers
-var lastPingTime = {};        // Tracks last received ping timestamps
-var nextIndex = 1;            // Next available index
-var timeoutThreshold = 2000;  // Timeout: 2 sec of no ping = disconnection
+// Global state
+var detectedLocalClient = "";  // Set from the first element in refresh messages.
+var clientOrder = [];          // Holds sender clients (excluding the local receiver) in join order.
+var indexMap = {};             // Maps client names to index numbers (starting at 1).
+var lastRefreshString = "";    // Holds the last refresh debug string to avoid redundant output.
 
-// **Process Incoming OOCSI Data**
-function indexOOCSI(channel, smartThingID, param) {
-    var values = arrayfromargs(arguments).slice(3); // Get all values
-    var currentTime = new Date().getTime();
-
-    // **Handle Client Pings ("channel client ping 1")**
-    if (param === "ping" && values[0] == 1) {
-        lastPingTime[smartThingID] = currentTime; // Track last received ping
-
-        if (!(smartThingID in smartThingIndexMap)) {
-            smartThingIndexMap[smartThingID] = nextIndex++;
-            outlet(1, "New smart thing detected:", smartThingID, "-> Index", smartThingIndexMap[smartThingID]);
-        }
-        return; // No need to process further
+/**
+ * updateRefresh()
+ * Rebuilds the refresh string from clientOrder and outputs it if it has changed.
+ */
+function updateRefresh() {
+    var refreshString = "refresh " + (clientOrder.length ? clientOrder.join(" ") : "empty");
+    if (refreshString !== lastRefreshString) {
+        lastRefreshString = refreshString;
+        outlet(1, refreshString);
     }
-
-    // **Ensure Smart Thing Has an Assigned Index**
-    if (!(smartThingID in smartThingIndexMap)) {
-        outlet(1, "ERROR: Smart thing", smartThingID, "sent data but no ping received. Ignoring...");
-        return; // Ignore unregistered devices
-    }
-
-    lastPingTime[smartThingID] = currentTime; // Update last message time
-    var deviceIndex = smartThingIndexMap[smartThingID];
-
-    // **Send formatted output: [channel param index values]**
-    outlet(0, [channel, param, deviceIndex].concat(values));
 }
 
-// **Check for Disconnected Smart Things & Reassign Indexes**
-function checkForTimeouts() {
-    var currentTime = new Date().getTime();
-    var thingsToRemove = [];
-
-    for (var thing in lastPingTime) {
-        if (currentTime - lastPingTime[thing] > timeoutThreshold) {
-            thingsToRemove.push(thing);
-        }
+/**
+ * receiveOOCSI()
+ * Main dispatcher for incoming messages.
+ */
+function receiveOOCSI() {
+    var args = [];
+    for (var i = 0; i < arguments.length; i++) {
+        args.push(arguments[i]);
     }
+    if (inlet === 0) {
+        processData(args);
+    } else if (inlet === 1) {
+        processPresence(args);
+    }
+}
 
-    if (thingsToRemove.length > 0) {
-        for (var i = 0; i < thingsToRemove.length; i++) {
-            var lostThing = thingsToRemove[i];
+/**
+ * processData(args)
+ * Handles data messages in the form:
+ *   [channel, client, param, value(s)...]
+ * Data from the local receiver is ignored.
+ * If a data message is received from a client that has not been registered
+ * via a join or refresh event, an error is output.
+ */
+function processData(args) {
+    if (args.length < 3) return;
+    var channel = args[0].toString().trim();
+    var client  = args[1].toString().trim();
+    var param   = args[2].toString().trim();
+    var values  = args.slice(3);
+    
+    // Ignore data from the local receiver.
+    if (client === detectedLocalClient) return;
+    
+    if (!(client in indexMap)) {
+        outlet(1, "oocsi: ERROR: Received data from unknown client: " + client);
+        return;
+    }
+    var idx = indexMap[client];
+    outlet(0, [channel, idx, param].concat(values));
+}
 
-            // **Notify that a smart thing has disconnected**
-            if (smartThingIndexMap[lostThing]) {
-                outlet(1, "Smart thing disconnected:", lostThing, "-> Index", smartThingIndexMap[lostThing]);
+/**
+ * processPresence(args)
+ * Handles presence events.
+ * Refresh events are in the form:
+ *   [channel, "refresh", client1, client2, ...]
+ *   (the first client is assumed to be the local receiver and is omitted)
+ *
+ * Join/leave events are in the form:
+ *   [channel, client, "join"] or [channel, client, "leave"]
+ */
+function processPresence(args) {
+    if (args.length < 2) return;
+    var channel = args[0].toString().trim();
+    
+    if (args[1].toString().trim() === "refresh") {
+        // Build the full client list from the refresh message.
+        var allClients = args.slice(2).map(function(c) { return c.toString().trim(); });
+        // Assume the first client is the local receiver.
+        if (allClients.length > 0) {
+            detectedLocalClient = allClients[0];
+        } else {
+            detectedLocalClient = "";
+        }
+        // Omit the local receiver.
+        var refreshClients = (allClients.length > 0) ? allClients.slice(1) : [];
+        
+        // Update clientOrder:
+        // Remove clients no longer present...
+        var newOrder = clientOrder.filter(function(client) {
+            return refreshClients.indexOf(client) !== -1;
+        });
+        // ...and append any new clients, preserving the refresh order.
+        for (var i = 0; i < refreshClients.length; i++) {
+            if (newOrder.indexOf(refreshClients[i]) === -1) {
+                newOrder.push(refreshClients[i]);
             }
-
-            delete smartThingIndexMap[lostThing];
-            delete lastPingTime[lostThing];
         }
-
-        // **Reassign Indexes Sequentially**
-        var newIndex = 1;
-        for (var thing in smartThingIndexMap) {
-            smartThingIndexMap[thing] = newIndex++;
+        clientOrder = newOrder;
+        
+        // Rebuild indexMap from clientOrder.
+        var newIndexMap = {};
+        for (var i = 0; i < clientOrder.length; i++) {
+            newIndexMap[clientOrder[i]] = i + 1;
         }
-        nextIndex = newIndex;
+        indexMap = newIndexMap;
+        
+        updateRefresh();
+    } else {
+        // Handle join/leave events: [channel, client, "join"] or [channel, client, "leave"]
+        var client = args[1].toString().trim();
+        var eventType = args[2].toString().trim();
+        
+        // Ignore events from the local receiver.
+        if (client === detectedLocalClient) return;
+        
+        if (eventType === "join") {
+            if (clientOrder.indexOf(client) === -1) {
+                clientOrder.push(client);
+                indexMap[client] = clientOrder.length;
+                outlet(1, "joined " + client);
+                updateRefresh();
+            }
+        } else if (eventType === "leave") {
+            var idx = clientOrder.indexOf(client);
+            if (idx !== -1) {
+                outlet(1, "left " + client);
+                clientOrder.splice(idx, 1);
+                // Rebuild indexMap.
+                var newIndexMap = {};
+                for (var i = 0; i < clientOrder.length; i++) {
+                    newIndexMap[clientOrder[i]] = i + 1;
+                }
+                indexMap = newIndexMap;
+                updateRefresh();
+            }
+        }
     }
 }
-
-// **Start Periodic Timeout Checking**
-var task = new Task(checkForTimeouts, this);
-task.interval = 1000; // Check every second for fast response
-task.repeat();

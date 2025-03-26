@@ -1,0 +1,37 @@
+{
+	"pattrstorage" : 	{
+		"name" : "oocsi-presence",
+		"slots" : 		{
+			"1" : 			{
+				"id" : 1,
+				"data" : 				{
+					"oocsi::client" : [ "CLIENT-1" ],
+					"oocsi::mute" : [ 0.0 ],
+					"oocsi::channel" : [ "maxchannel" ],
+					"oocsi::port" : [ 4444.0 ],
+					"oocsi::host" : [ "oocsi.id.tue.nl" ],
+					"oocsi::smart" : [ 0.0 ],
+					"oocsi::status" : [ 0.0 ],
+					"oocsi[1]::client" : [ "CLIENT-2" ],
+					"oocsi[1]::mute" : [ 0.0 ],
+					"oocsi[1]::channel" : [ "maxchannel" ],
+					"oocsi[1]::port" : [ 4444.0 ],
+					"oocsi[1]::host" : [ "oocsi.id.tue.nl" ],
+					"oocsi[1]::smart" : [ 0.0 ],
+					"oocsi[1]::status" : [ 0.0 ],
+					"oocsi[2]::client" : [ "PRESENCE" ],
+					"oocsi[2]::mute" : [ 0.0 ],
+					"oocsi[2]::channel" : [ "maxchannel" ],
+					"oocsi[2]::port" : [ 4444.0 ],
+					"oocsi[2]::host" : [ "oocsi.id.tue.nl" ],
+					"oocsi[2]::smart" : [ 0.0 ],
+					"oocsi[2]::status" : [ 0.0 ]
+				}
+
+			}
+
+		}
+
+	}
+
+}
