@@ -65,6 +65,16 @@ function processData(args) {
     var param   = args[2].toString().trim();
     var values  = args.slice(3);
     
+    /*
+    // Filter out any values that are the string "null" or the actual value null.
+    values = values.filter(function(v) {
+        return v !== null && v !== "null";
+    });
+    
+    // If there are no valid values, do nothing.
+    if (values.length === 0) return;
+    */
+   
     // Ignore data from the local receiver.
     if (client === detectedLocalClient) return;
     

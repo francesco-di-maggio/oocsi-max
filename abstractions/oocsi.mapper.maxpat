@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 794.0, -884.0, 559.0, 678.0 ],
+		"rect" : [ 155.0, 93.0, 559.0, 678.0 ],
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
 				"box" : 				{
@@ -450,7 +450,7 @@
 
 							}
  ],
-						"originid" : "pat-394"
+						"originid" : "pat-10052"
 					}
 ,
 					"patching_rect" : [ 210.0, 146.0, 23.0, 22.0 ],
@@ -585,8 +585,8 @@
 					"numinlets" : 5,
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 166.0, 72.0, 193.0, 22.0 ],
-					"text" : "route debug routing outlabels clear"
+					"patching_rect" : [ 166.0, 72.0, 194.0, 22.0 ],
+					"text" : "route debug set outlabels clear"
 				}
 
 			}
@@ -637,7 +637,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 210.0, 274.0, 87.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "oocsi.lookup.js",
+						"filename" : "oocsi.lookup",
 						"parameter_enable" : 0
 					}
 ,
@@ -678,7 +678,7 @@
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 28.0, 496.0, 93.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "oocsi.mapper.js",
+						"filename" : "oocsi.mapper",
 						"parameter_enable" : 0
 					}
 ,
@@ -902,7 +902,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-23", 0 ],
-					"midpoints" : [ 262.5, 96.0, 262.5, 96.0 ],
+					"midpoints" : [ 263.0, 96.0, 262.5, 96.0 ],
 					"source" : [ "obj-4", 2 ]
 				}
 
@@ -910,7 +910,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-28", 0 ],
-					"midpoints" : [ 306.0, 96.0, 306.5, 96.0 ],
+					"midpoints" : [ 306.75, 96.0, 306.5, 96.0 ],
 					"source" : [ "obj-4", 3 ]
 				}
 
@@ -918,7 +918,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-43", 0 ],
-					"midpoints" : [ 219.0, 96.0, 219.5, 96.0 ],
+					"midpoints" : [ 219.25, 96.0, 219.5, 96.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
@@ -1006,7 +1006,7 @@
 
 			}
  ],
-		"originid" : "pat-390"
+		"originid" : "pat-10050"
 	}
 
 }
