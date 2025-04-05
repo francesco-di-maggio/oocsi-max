@@ -43,7 +43,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 301.0, 206.0, 37.0, 20.0 ],
+					"patching_rect" : [ 316.0, 206.0, 37.0, 20.0 ],
 					"text" : "client"
 				}
 
@@ -56,7 +56,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 134.0, 205.0, 165.0, 22.0 ]
+					"patching_rect" : [ 134.0, 205.0, 178.0, 22.0 ],
+					"text" : "OOCSI/tools/testchannel-gen"
 				}
 
 			}
@@ -123,9 +124,9 @@
 					"maxclass" : "bpatcher",
 					"name" : "oocsi.maxpat",
 					"numinlets" : 2,
-					"numoutlets" : 1,
+					"numoutlets" : 2,
 					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "" ],
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 27.0, 60.0, 214.0, 45.0 ],
 					"varname" : "oocsi",
 					"viewvisibility" : 1
@@ -222,7 +223,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-23", 1 ],
-					"midpoints" : [ 36.5, 191.0, 289.5, 191.0 ],
+					"midpoints" : [ 36.5, 191.0, 302.5, 191.0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -260,14 +261,14 @@
 
 			}
  ],
-		"originid" : "pat-11256",
+		"originid" : "pat-11",
 		"parameters" : 		{
 			"obj-11::obj-115" : [ "live.text[22]", "live.text", 0 ],
 			"obj-11::obj-135" : [ "live.text[19]", "live.text", 0 ],
+			"obj-11::obj-21" : [ "live.text[928]", "live.text", 0 ],
 			"obj-11::obj-25" : [ "live.text[6]", "live.text", 0 ],
 			"obj-11::obj-32" : [ "live.text[20]", "live.text", 0 ],
-			"obj-11::obj-4" : [ "live.text[23]", "live.text", 0 ],
-			"obj-11::obj-54" : [ "live.text[18]", "live.text", 0 ],
+			"obj-11::obj-33" : [ "live.tab", "live.tab", 0 ],
 			"obj-11::obj-7" : [ "live.text[21]", "live.text", 0 ],
 			"obj-11::obj-70" : [ "live.numbox[2]", "live.numbox", 0 ],
 			"parameterbanks" : 			{
@@ -294,14 +295,6 @@
 ,
 				"obj-11::obj-32" : 				{
 					"parameter_longname" : "live.text[20]"
-				}
-,
-				"obj-11::obj-4" : 				{
-					"parameter_longname" : "live.text[23]"
-				}
-,
-				"obj-11::obj-54" : 				{
-					"parameter_longname" : "live.text[18]"
 				}
 ,
 				"obj-11::obj-7" : 				{
@@ -375,6 +368,13 @@
 			}
 , 			{
 				"name" : "oocsi.sender.js",
+				"bootpath" : "~/Documents/GitHub/oocsi-max/js",
+				"patcherrelativepath" : "../js",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "oocsi.strip.js",
 				"bootpath" : "~/Documents/GitHub/oocsi-max/js",
 				"patcherrelativepath" : "../js",
 				"type" : "TEXT",

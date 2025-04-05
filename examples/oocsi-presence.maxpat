@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ -132.0, -827.0, 1097.0, 624.0 ],
+		"rect" : [ 34.0, 93.0, 1097.0, 624.0 ],
 		"gridsize" : [ 15.0, 15.0 ],
 		"boxes" : [ 			{
 				"box" : 				{
@@ -22,7 +22,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 995.0, 408.0, 73.0, 35.0 ],
-					"text" : "client_6277 client_3932"
+					"text" : "client_0732 client_1304"
 				}
 
 			}
@@ -476,7 +476,7 @@
 			}
 , 			{
 				"box" : 				{
-					"active1" : [ 0.427450980392157, 0.843137254901961, 1.0, 1.0 ],
+					"active1" : [ 0.594473705410263, 0.720560630419913, 0.928309050695498, 1.0 ],
 					"bgcolor" : [ 0.2, 0.2, 0.2, 0.0 ],
 					"bubblesize" : 16,
 					"emptycolor" : [ 0.670588235294118, 0.776470588235294, 0.796078431372549, 1.0 ],
@@ -647,6 +647,7 @@
 					"offset" : [ 0.0, 0.0 ],
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 958.0, 66.0, 70.0, 45.0 ],
+					"varname" : "mo.console",
 					"viewvisibility" : 1
 				}
 
@@ -685,7 +686,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 9.0, 7.0, 974.0, 40.0 ],
-					"text" : "When in \"presence\" mode, the oocsi-max receiver subscribes to presence(channel), which recognizes which device joins/leaves the server.\nThis mdoe assignes each module with a dynamic index, making it unrelevant to know the exact client name. Useful since we use the _#### feature in OOCSI."
+					"text" : "When in \"presence\" mode, the oocsi-max receiver subscribes to presence(channel), which recognizes which device joins/leaves the server.\nThis mode assignes each module with a dynamic index, making it unrelevant to know the exact client name. Useful since we use the _#### feature in OOCSI."
 				}
 
 			}
@@ -1349,14 +1350,14 @@
 
 			}
  ],
-		"originid" : "pat-220",
+		"originid" : "pat-45",
 		"parameters" : 		{
 			"obj-1::obj-115" : [ "live.text[14]", "live.text", 0 ],
 			"obj-1::obj-135" : [ "live.text[4]", "live.text", 0 ],
+			"obj-1::obj-21" : [ "live.text[928]", "live.text", 0 ],
 			"obj-1::obj-25" : [ "live.text[7]", "live.text", 0 ],
 			"obj-1::obj-32" : [ "live.text[12]", "live.text", 0 ],
-			"obj-1::obj-4" : [ "live.text[15]", "live.text", 0 ],
-			"obj-1::obj-54" : [ "live.text[242]", "live.text", 0 ],
+			"obj-1::obj-33" : [ "live.tab", "live.tab", 0 ],
 			"obj-1::obj-7" : [ "live.text[26]", "live.text", 0 ],
 			"obj-1::obj-70" : [ "live.numbox[1]", "live.numbox", 0 ],
 			"obj-25::obj-13" : [ "live.dial[44]", "live.text", 0 ],
@@ -1364,18 +1365,18 @@
 			"obj-25::obj-9" : [ "live.text[295]", "live.text", 0 ],
 			"obj-33::obj-115" : [ "live.text[21]", "live.text", 0 ],
 			"obj-33::obj-135" : [ "live.text[23]", "live.text", 0 ],
+			"obj-33::obj-21" : [ "live.text[1]", "live.text", 0 ],
 			"obj-33::obj-25" : [ "live.text[8]", "live.text", 0 ],
 			"obj-33::obj-32" : [ "live.text[25]", "live.text", 0 ],
-			"obj-33::obj-4" : [ "live.text[24]", "live.text", 0 ],
-			"obj-33::obj-54" : [ "live.text[27]", "live.text", 0 ],
+			"obj-33::obj-33" : [ "live.tab[1]", "live.tab", 0 ],
 			"obj-33::obj-7" : [ "live.text[9]", "live.text", 0 ],
 			"obj-33::obj-70" : [ "live.numbox[2]", "live.numbox", 0 ],
 			"obj-41::obj-115" : [ "live.text[28]", "live.text", 0 ],
 			"obj-41::obj-135" : [ "live.text[30]", "live.text", 0 ],
+			"obj-41::obj-21" : [ "live.text[2]", "live.text", 0 ],
 			"obj-41::obj-25" : [ "live.text[17]", "live.text", 0 ],
 			"obj-41::obj-32" : [ "live.text[31]", "live.text", 0 ],
-			"obj-41::obj-4" : [ "live.text[16]", "live.text", 0 ],
-			"obj-41::obj-54" : [ "live.text[22]", "live.text", 0 ],
+			"obj-41::obj-33" : [ "live.tab[2]", "live.tab", 0 ],
 			"obj-41::obj-7" : [ "live.text[29]", "live.text", 0 ],
 			"obj-41::obj-70" : [ "live.numbox[3]", "live.numbox", 0 ],
 			"parameterbanks" : 			{
@@ -1404,20 +1405,24 @@
 					"parameter_longname" : "live.text[12]"
 				}
 ,
-				"obj-1::obj-4" : 				{
-					"parameter_longname" : "live.text[15]"
-				}
-,
-				"obj-1::obj-54" : 				{
-					"parameter_longname" : "live.text[242]"
-				}
-,
 				"obj-1::obj-7" : 				{
 					"parameter_longname" : "live.text[26]"
 				}
 ,
 				"obj-1::obj-70" : 				{
 					"parameter_longname" : "live.numbox[1]"
+				}
+,
+				"obj-25::obj-13" : 				{
+					"parameter_longname" : "live.dial[44]"
+				}
+,
+				"obj-25::obj-7" : 				{
+					"parameter_longname" : "live.dial[37]"
+				}
+,
+				"obj-25::obj-9" : 				{
+					"parameter_longname" : "live.text[295]"
 				}
 ,
 				"obj-33::obj-115" : 				{
@@ -1428,6 +1433,10 @@
 					"parameter_longname" : "live.text[23]"
 				}
 ,
+				"obj-33::obj-21" : 				{
+					"parameter_longname" : "live.text[1]"
+				}
+,
 				"obj-33::obj-25" : 				{
 					"parameter_longname" : "live.text[8]"
 				}
@@ -1436,12 +1445,8 @@
 					"parameter_longname" : "live.text[25]"
 				}
 ,
-				"obj-33::obj-4" : 				{
-					"parameter_longname" : "live.text[24]"
-				}
-,
-				"obj-33::obj-54" : 				{
-					"parameter_longname" : "live.text[27]"
+				"obj-33::obj-33" : 				{
+					"parameter_longname" : "live.tab[1]"
 				}
 ,
 				"obj-33::obj-7" : 				{
@@ -1460,6 +1465,10 @@
 					"parameter_longname" : "live.text[30]"
 				}
 ,
+				"obj-41::obj-21" : 				{
+					"parameter_longname" : "live.text[2]"
+				}
+,
 				"obj-41::obj-25" : 				{
 					"parameter_longname" : "live.text[17]"
 				}
@@ -1468,12 +1477,8 @@
 					"parameter_longname" : "live.text[31]"
 				}
 ,
-				"obj-41::obj-4" : 				{
-					"parameter_longname" : "live.text[16]"
-				}
-,
-				"obj-41::obj-54" : 				{
-					"parameter_longname" : "live.text[22]"
+				"obj-41::obj-33" : 				{
+					"parameter_longname" : "live.tab[2]"
 				}
 ,
 				"obj-41::obj-7" : 				{
